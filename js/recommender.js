@@ -27,11 +27,7 @@ function getClusters(clusterId) {
       }
     }
   };
-  xhttp.open(
-    "GET",
-    `${backend_url}/episode?clusterId=${clusterId}`,
-    true
-  );
+  xhttp.open("GET", `${backend_url}/episode?clusterId=${clusterId}`, true);
   xhttp.send();
 }
 
@@ -83,29 +79,29 @@ function getLikedEpisodes() {
         JSON.parse(result[0]).Items,
         0
       );
-      document.getElementById("recommended").innerHTML = episodeParser(rec, 1);
+      document.getElementById("recommended").innerHTML = episodeParser(
+        rec,
+        1
+      );
       document.getElementById("stats").innerHTML = updateStats(
         JSON.parse(result[0]).Items
       );
     }
   };
-  xhttp.open(
-    "GET",
-    `${backend_url}/liked`,
-    true
-  );
+  xhttp.open("GET", `${backend_url}/liked`, true);
   xhttp.send();
 }
 
 function episodeParser(response, type) {
   if (response == null) return;
-  var header =
+  var flip_card_front =
     '<center><div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front">';
-  var middle = '</div><div class="flip-card-back">';
-  var footer = " </div></div></div><br></center>";
+  var flip_card_back_start = '</div><div class="flip-card-back">';
+  var flip_card_end = " </div></div></div><br></center>";
   var defaultImage =
     "https://upload.wikimedia.org/wikipedia/commons/2/2a/ITunes_12.2_logo.png";
   episodes = "";
+  var detail_info_in_front = (type == 0);
   response.forEach((i) => {
     episodesDB.push(i);
     rating = "<br>";
@@ -136,8 +132,25 @@ function episodeParser(response, type) {
     thumbnail = i["thumbnail"];
     if (!thumbnail) thumbnail = getImageHeader(defaultImage);
     else thumbnail = getImageHeader(thumbnail);
-    episodes +=
-      header + thumbnail + middle + rating + getEpisodeInfo(i) + footer;
+    var this_episode;
+    if (detail_info_in_front) {
+      this_episode =
+        flip_card_front +
+        rating +
+        getEpisodeInfo(i) +
+        flip_card_back_start +
+        thumbnail +
+        flip_card_end;
+    } else {
+      this_episode =
+        flip_card_front +
+        thumbnail +
+        flip_card_back_start +
+        rating +
+        getEpisodeInfo(i) +
+        flip_card_end;
+    }
+    episodes += this_episode;
   });
   return episodes;
 }
@@ -231,11 +244,7 @@ function resetDB() {
       init();
     }
   };
-  xhttp.open(
-    "GET",
-    `${backend_url}/reset`,
-    true
-  );
+  xhttp.open("GET", `${backend_url}/reset`, true);
   xhttp.send();
 }
 
@@ -354,11 +363,7 @@ function uploader(episodes, clusterId) {
     data["liked"] = false;
     data["rating"] = 0;
     var xhttp = new XMLHttpRequest();
-    xhttp.open(
-      "POST",
-      `${backend_url}/uploadepisode`,
-      true
-    );
+    xhttp.open("POST", `${backend_url}/uploadepisode`, true);
     xhttp.send(JSON.stringify(data));
   }
 }
