@@ -1,27 +1,18 @@
 <!DOCTYPE html>
 <html>
 <head>
-<style>
-table {
-  font-family: arial, sans-serif;
-  border-collapse: collapse;
-  width: 60%;
-  background-color: white;
-  color:black;
-}
-
-td, th {
-  border: 1px solid #dddddd;
-  text-align: left;
-  padding: 8px;
-}
-
-tr:nth-child(even) {
-  background-color: #dddddd;
-}
-</style>
+  <script type="text/javascript" src="js/jquery-3.5.1.min.js" ></script>
+  <script>
+      $(function(){ $("head").load("common/head.html") });
+  </script>
 </head>
-<body bgcolor="grey" text="white">
+<nav>
+  <script>
+    $(function(){ $("nav").load("common/navigation.html") });
+</script>
+</nav>
+<body>
+
 <center>
 <h2>Meet our team!</h2>
 
@@ -62,7 +53,6 @@ tr:nth-child(even) {
     <td>Data Clustering</td>
   </tr>
 </table>
-<a href="index.html">Back to Podcast Explorer</a>
 </center>
 </body>
 </html>
