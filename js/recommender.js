@@ -102,16 +102,16 @@ function episodeParser(response, type) {
     "https://upload.wikimedia.org/wikipedia/commons/2/2a/ITunes_12.2_logo.png";
   episodes = "";
   var detail_info_in_front = (type == 0);
-  response.forEach((i) => {
-    episodesDB.push(i);
+  response.forEach((data) => {
+    episodesDB.push(data);
     rating = "<br>";
     var j = 0;
-    for (j = 0; j < i["rating"]; j++)
+    for (j = 0; j < data["rating"]; j++)
       rating +=
         '<span class="fa fa-star checked" onclick="rateEpisode(' +
-        i["episodeId"] +
+        data["episodeId"] +
         "," +
-        i["clusterId"] +
+        data["clusterId"] +
         "," +
         (j + 1) +
         "," +
@@ -120,16 +120,16 @@ function episodeParser(response, type) {
     for (; j < 5; j++)
       rating +=
         '<span class="fa fa-star" onclick="rateEpisode(' +
-        i["episodeId"] +
+        data["episodeId"] +
         "," +
-        i["clusterId"] +
+        data["clusterId"] +
         "," +
         (j + 1) +
         "," +
         type +
         ')"></span>';
     rating += "<br>";
-    thumbnail = i["thumbnail"];
+    thumbnail = data["thumbnail"];
     if (!thumbnail) thumbnail = getImageHeader(defaultImage);
     else thumbnail = getImageHeader(thumbnail);
     var this_episode;
@@ -137,9 +137,10 @@ function episodeParser(response, type) {
       this_episode =
         flip_card_front +
         rating +
-        getEpisodeInfo(i) +
+        getEpisodeInfo(data) +
         flip_card_back_start +
         thumbnail +
+        buildMoreInfoButton(data) +
         flip_card_end;
     } else {
       this_episode =
@@ -147,7 +148,8 @@ function episodeParser(response, type) {
         thumbnail +
         flip_card_back_start +
         rating +
-        getEpisodeInfo(i) +
+        getEpisodeInfo(data) +
+        buildMoreInfoButton(data) +
         flip_card_end;
     }
     episodes += this_episode;
@@ -167,10 +169,15 @@ function getEpisodeInfo(data) {
     Math.round(data["duration"]).toString() +
     " mins<br> Language - " +
     data["language"] +
-    "<br><button onclick=moreInfo('" +
+    "<br>"
+  return episode;
+}
+
+function buildMoreInfoButton(data) {
+  var more_info_button = "<button onclick=moreInfo('" +
     data["episodeId"].toString() +
     "') style='color:#000000';>More Info...</button>";
-  return episode;
+  return more_info_button
 }
 
 function moreInfo(episodeId, clusterId = -1, type = "") {
