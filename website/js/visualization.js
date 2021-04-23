@@ -1,9 +1,9 @@
 function visualization(data) {
   d3.selectAll("#my_dataviz > *").remove();
-  var width = 1000,
+  var width = 800,
     height = 600,
     padding = 1.5, // separation nodes in same cluster
-    clusterPadding = 80, // separation between differnet clusters
+    clusterPadding = 80, // separation between different clusters
     maxRadius = 1;
 
   var data = data.flat();
