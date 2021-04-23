@@ -1,11 +1,16 @@
 function init() {
+  var init_cluster_id = 4;
   episodesDB = [];
   clusterData = [];
   setupModal();
-  getClusters(4);
+  getClusters(init_cluster_id);
 }
+
 episodesDB = [];
 clusterData = [];
+
+var backend_url = "https://1wk1r9dra8.execute-api.us-east-1.amazonaws.com/Test";
+
 function getClusters(clusterId) {
   var xhttp = new XMLHttpRequest();
   xhttp.onreadystatechange = function () {
@@ -24,8 +29,7 @@ function getClusters(clusterId) {
   };
   xhttp.open(
     "GET",
-    "https://1wk1r9dra8.execute-api.us-east-1.amazonaws.com/Test/episode?clusterId=" +
-      clusterId,
+    `${backend_url}/episode?clusterId=${clusterId}`,
     true
   );
   xhttp.send();
@@ -46,12 +50,7 @@ function updateLikeDB(clusterId, episodeId, rating) {
   };
   xhttp.open(
     "POST",
-    "https://1wk1r9dra8.execute-api.us-east-1.amazonaws.com/Test/episode?rating=" +
-      rating +
-      "&episodeId=" +
-      episodeId +
-      "&clusterId=" +
-      clusterId,
+    `${backend_url}/episode?rating=${rating}&episodeId=${episodeId}&clusterId=${clusterId}`,
     true
   );
   xhttp.send();
@@ -67,12 +66,7 @@ function rateLikedEpisode(clusterId, episodeId, rating) {
   };
   xhttp.open(
     "POST",
-    "https://1wk1r9dra8.execute-api.us-east-1.amazonaws.com/Test/liked?rating=" +
-      rating +
-      "&episodeId=" +
-      episodeId +
-      "&clusterId=" +
-      clusterId,
+    `${backend_url}/liked?rating=${rating}&episodeId=${episodeId}&clusterId=${clusterId}`,
     true
   );
   xhttp.send();
@@ -97,7 +91,7 @@ function getLikedEpisodes() {
   };
   xhttp.open(
     "GET",
-    "https://1wk1r9dra8.execute-api.us-east-1.amazonaws.com/Test/liked",
+    `${backend_url}/liked`,
     true
   );
   xhttp.send();
@@ -239,7 +233,7 @@ function resetDB() {
   };
   xhttp.open(
     "GET",
-    "https://1wk1r9dra8.execute-api.us-east-1.amazonaws.com/Test/reset",
+    `${backend_url}/reset`,
     true
   );
   xhttp.send();
@@ -362,7 +356,7 @@ function uploader(episodes, clusterId) {
     var xhttp = new XMLHttpRequest();
     xhttp.open(
       "POST",
-      "https://1wk1r9dra8.execute-api.us-east-1.amazonaws.com/Test/uploadepisode",
+      `${backend_url}/uploadepisode`,
       true
     );
     xhttp.send(JSON.stringify(data));
