@@ -92,7 +92,7 @@ function episodeParser(response,type)
         for(j=0;j<i["rating"];j++) rating += '<span class="fa fa-star checked" onclick="rateEpisode('+i["episodeId"]+','+i["clusterId"]+','+(j+1)+','+type+')"></span>';
         for(;j<5;j++) rating += '<span class="fa fa-star" onclick="rateEpisode('+i["episodeId"]+','+i["clusterId"]+','+(j+1)+','+type+')"></span>';
         rating+="<br>"
-        var name = '<button>'+i['episodeName'].split(/\s+/).slice(0,5).join(" ")+'</button>'
+        var name = '<button>'+i['episodeName'].split(/\s+/).slice(0,5).join(" ")+'...</button>'
         thumbnail = i["thumbnail"]
         if(!thumbnail) thumbnail = getImageHeader(defaultImage);
         else thumbnail = getImageHeader(thumbnail);
