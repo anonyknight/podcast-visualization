@@ -99,7 +99,7 @@ function episodeParser(response, type) {
   var flip_card_back_start = '</div><div class="flip-card-back">';
   var flip_card_end = " </div></div></div><br></center>";
   var defaultImage =
-    "https://upload.wikimedia.org/wikipedia/commons/2/2a/ITunes_12.2_logo.png";
+    "https://developer.spotify.com/assets/branding-guidelines/icon1@2x.png";
   episodes = "";
   var detail_info_in_front = (type == 0);
   response.forEach((data) => {
