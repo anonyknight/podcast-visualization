@@ -94,14 +94,13 @@ function getLikedEpisodes() {
 
 function episodeParser(response, type) {
   if (response == null) return;
-  var flip_card_front =
-    '<center><div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front">';
-  var flip_card_back_start = '</div><div class="flip-card-back">';
-  var flip_card_end = " </div></div></div><br></center>";
+  var card_start =
+    '<div class="card">';
+  var container_start = '<div class="container">';
+  var card_end = " </div></div><br>";
   var defaultImage =
     "https://developer.spotify.com/assets/branding-guidelines/icon1@2x.png";
   episodes = "";
-  var detail_info_in_front = (type == 0);
   response.forEach((data) => {
     episodesDB.push(data);
     rating = "<br>";
@@ -132,26 +131,14 @@ function episodeParser(response, type) {
     thumbnail = data["thumbnail"];
     if (!thumbnail) thumbnail = getImageHeader(defaultImage);
     else thumbnail = getImageHeader(thumbnail);
-    var this_episode;
-    if (detail_info_in_front) {
-      this_episode =
-        flip_card_front +
-        rating +
-        getEpisodeInfo(data) +
-        flip_card_back_start +
-        thumbnail +
-        buildMoreInfoButton(data) +
-        flip_card_end;
-    } else {
-      this_episode =
-        flip_card_front +
-        thumbnail +
-        flip_card_back_start +
-        rating +
-        getEpisodeInfo(data) +
-        buildMoreInfoButton(data) +
-        flip_card_end;
-    }
+    var this_episode =
+      card_start +
+      thumbnail +
+      container_start +
+      rating +
+      getEpisodeInfo(data) +
+      buildMoreInfoButton(data) +
+      card_end;
     episodes += this_episode;
   });
   return episodes;
