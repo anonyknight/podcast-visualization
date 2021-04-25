@@ -10,7 +10,7 @@ Head over to [https://console.aws.amazon.com/console/home?region=us-east-1](http
 
 The REST endpoints which enable to connect the frontend webpage hosted on github pages to the backend server and database is the API gateway. It also defines the interface and protocol between the front end and backend.
 
-![AWS-API-Gateway](images\aws-api-gateway.png)
+![AWS-API-Gateway](images/aws-api-gateway.png)
 
 The following is the API gateway endpoints. We have 4 resources
 
